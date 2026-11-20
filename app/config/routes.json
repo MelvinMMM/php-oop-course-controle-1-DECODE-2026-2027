@@ -1,6 +1,12 @@
 [
   {
     "uri": "/",
-    "method": "GET"
+    "method": "GET",
+    "controller": "HomeController"
+  },
+  {
+    "uri": "/contact",
+    "method": "POST",
+    "controller": "ContactController"
   }
 ]
