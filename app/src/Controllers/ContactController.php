@@ -52,7 +52,7 @@ class ContactController extends AbstractController
 
         $finalPath = $newPathForContact . "/" . $nameFile;
 
-
+        file_put_contents($finalPath, json_encode($newData, JSON_ERROR_DEPTH));
 
         $response->statusCode = 201;
         $response->content = 'success';
