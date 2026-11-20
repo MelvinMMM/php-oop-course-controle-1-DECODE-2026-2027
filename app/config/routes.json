@@ -13,5 +13,10 @@
     "uri": "/contact",
     "method": "GET",
     "controller": "AllContactForms"
+  },
+  {
+    "uri": "/contact/<filename>",
+    "method": "GET",
+    "controller": "OneContactForms"
   }
 ]

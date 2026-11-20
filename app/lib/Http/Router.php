@@ -79,7 +79,16 @@ class Router
 
     private function checkUri(Request $request, string $uri): bool
     {
-        return $request->getUri() === $uri;
+        if ($request->getUri() === $uri) {
+            return true;
+        }
+        if (str_contains($uri, '<')) {
+
+            $pattern = preg_replace('/<[a-zA-Z0-9_]+>/', '([^/]+)', $uri);
+            $regex = '#^' . $pattern . '$#';
+            return (bool) preg_match($regex, $request->getUri());
+        }
+        return false;
     }
 
     private function checkMethod(Request $request, string $method): bool
