@@ -41,7 +41,7 @@ class ContactController extends AbstractController
 
         $newPathForContact = __DIR__ . '/../../var/contacts';
         if (!is_dir($newPathForContact)) {
-            mkdir($newPathForContact, 755, true);
+            mkdir($newPathForContact, 0777, true);
         }
 
         $timestamp = time();
