@@ -23,5 +23,10 @@
     "uri": "/contact/<filename>",
     "method": "PATCH",
     "controller": "ModifiedContactForms"
+  },
+  {
+    "uri": "/contact/<filename>",
+    "method": "DELETE",
+    "controller": "DeleteContactForms"
   }
 ]

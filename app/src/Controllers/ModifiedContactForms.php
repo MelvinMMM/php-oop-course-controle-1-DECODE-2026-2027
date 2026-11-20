@@ -11,7 +11,7 @@ class ModifiedContactForms extends AbstractController
     {
         $response = new Response();
         $uri = basename($request->getUri());
-        $pathToContact = __DIR__ . '/../../var/contacts/' . $uri;
+        $pathToFileContact = __DIR__ . '/../../var/contacts/' . $uri;
 
 
         $dataJSON = file_get_contents('php://input');
@@ -39,7 +39,7 @@ class ModifiedContactForms extends AbstractController
                 return $response;
             }
         }
-        $contentFile = json_decode(file_get_contents($pathToContact), true);
+        $contentFile = json_decode(file_get_contents($pathToFileContact), true);
 
         var_dump($contentFile);
         foreach ($nameKeys as $key) {
@@ -47,27 +47,10 @@ class ModifiedContactForms extends AbstractController
         }
         $contentFile['dateOfLastUpdate'] = time();
 
-        file_put_contents($pathToContact, json_encode($contentFile, JSON_ERROR_DEPTH));
+        file_put_contents($pathToFileContact, json_encode($contentFile, JSON_ERROR_DEPTH));
 
         $response->statusCode = 200;
         $response->content = "Le fichier a été modifié avec succès";
-        return $response;
-
-
-
-        // $newPathForVar = __DIR__ . '/../../var/contacts';
-        // $pathUri = $newPathForVar . "/" . $basenameUri;
-
-        // if (!file_exists($pathUri)) {
-        //     $response->statusCode = 404;
-        //     $response->content = "Le fichier n'existe pas";
-        //     return $response;
-        // }
-
-
-        $response->statusCode = 200;
-        $response->content = "fcou";
-
         return $response;
     }
 }
