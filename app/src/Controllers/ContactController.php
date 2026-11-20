@@ -54,7 +54,7 @@ class ContactController extends AbstractController
 
 
 
-        $response->statusCode = 200;
+        $response->statusCode = 201;
         $response->content = 'success';
         return $response;
     }
