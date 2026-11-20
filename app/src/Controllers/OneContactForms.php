@@ -14,6 +14,8 @@ class OneContactForms extends AbstractController
         $uri = $request->getUri();
         $basenameUri = basename($uri);
 
+        var_dump($basenameUri);
+
         $newPathForVar = __DIR__ . '/../../var/contacts';
         $pathUri = $newPathForVar . "/" . $basenameUri;
 
