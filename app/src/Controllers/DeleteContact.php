@@ -9,21 +9,14 @@ class DeleteContact extends AbstractController
 {
     public function process(Request $request): Response
     {
-        $response = new Response();
         $uri = basename($request->getUri());
         $pathToFileContact = __DIR__ . '/../../var/contacts/' . $uri;
 
         if (!file_exists($pathToFileContact)) {
-            $response->statusCode = 404;
-            $response->content = "Le fichier n'existe pas";
-            return $response;
+            return $this->httpResponse("Le fichier n'existe pas", 404);
         }
 
         unlink($pathToFileContact);
-
-
-        $response->statusCode = 204;
-        $response->content = "Le fichier a été supprimé avec succès";
-        return $response;
+        return $this->httpResponse("", 204);
     }
 }

@@ -9,7 +9,6 @@ class ListContact extends AbstractController
 {
     public function process(Request $request): Response
     {
-        $response = new Response();
         $newPathForContact = __DIR__ . '/../../var/contacts';
         $contacts = [];
 
@@ -20,14 +19,10 @@ class ListContact extends AbstractController
 
             if ($file != '.' && $file != '..' && preg_match('/\.json$/', $file) === 1) {
                 $dataFile = file_get_contents($newPathForContact . "/" . $file, true);
-                // var_dump($dataFile);
 
                 $contacts[] = json_decode($dataFile, true, JSON_THROW_ON_ERROR);
             }
         }
-        // var_dump($contacts);
-        $response->content = json_encode($contacts, JSON_PRETTY_PRINT);
-        $response->statusCode = 200;
-        return $response;
+        return $this->httpResponse(json_encode($contacts, JSON_PRETTY_PRINT), 200);
     }
 }

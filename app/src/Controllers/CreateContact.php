@@ -9,34 +9,25 @@ class CreateContact extends AbstractController
 {
     public function process(Request $request): Response
     {
-        $response = new Response();
         if ($request->getMethod() !== "POST") {
-            $response->statusCode = 405;
-            $response->content = "La méthode reçu n'est pas la méthode attendue";
-            return $response;
+            return $this->httpResponse("La méthode reçu n'est pas la méthode attendue", 405);
         }
 
         $dataJSON = file_get_contents('php://input');
         $data = json_decode($dataJSON, true);
         if (!is_array($data)) {
-            $response->statusCode = 400;
-            $response->content = 'Le format JSON est invalide';
-            return $response;
+            return $this->httpResponse('Le format JSON est invalide', 400);
         }
 
         $obligatoryKeys = ['email', 'subject', 'message'];
         $nameKeys = array_keys($data);
 
         if ($obligatoryKeys !== $nameKeys) {
-            $response->statusCode = 400;
-            $response->content = "Tout les champs n'ont pas été rempli";
-            return $response;
+            return $this->httpResponse("Tout les champs n'ont pas été rempli", 400);
         }
 
         if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $response->statusCode = 400;
-            $response->content = "Le mail n'est pas valide";
-            return $response;
+            return $this->httpResponse("Le mail n'est pas valide", 400);
         }
 
         $newPathForContact = __DIR__ . '/../../var/contacts';
@@ -46,7 +37,7 @@ class CreateContact extends AbstractController
 
         $timestamp = time();
 
-        $nameFile = $timestamp . "_" . $data["email"] . ".json";
+        $nameFile = date('Y-m-d_H-i-s', $timestamp) . "_" . $data["email"] . ".json";
 
         $newData = ['email' => $data['email'], 'subject' => $data['subject'], 'message' => $data['message'], 'dateOfCreation' => $timestamp, 'dateOfLastUpdate' => $timestamp];
 
@@ -54,8 +45,8 @@ class CreateContact extends AbstractController
 
         file_put_contents($finalPath, json_encode($newData, JSON_ERROR_DEPTH));
 
-        $response->statusCode = 201;
-        $response->content = 'success';
-        return $response;
+
+
+        return $this->httpResponse(json_encode(['file' => $nameFile]), 201);
     }
 }

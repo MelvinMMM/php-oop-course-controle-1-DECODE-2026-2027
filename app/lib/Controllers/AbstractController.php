@@ -8,7 +8,7 @@ use App\Http\Request;
 abstract class AbstractController
 {
     public abstract function process(Request $request): Response;
-    protected function error(string $content, int $statusCode): Response
+    protected function httpResponse(string $content, int $statusCode): Response
     {
         $response = new Response();
         $response->statusCode = $statusCode;
