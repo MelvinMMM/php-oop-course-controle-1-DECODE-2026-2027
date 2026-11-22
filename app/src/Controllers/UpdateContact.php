@@ -32,8 +32,8 @@ class UpdateContact extends AbstractController
         $obligatoryKeys = ['email', 'subject', 'message'];
         $nameKeys = array_keys($data);
 
-        foreach ($obligatoryKeys as $key) {
-            if (!in_array($key, $nameKeys)) {
+        foreach ($nameKeys as $key) {
+            if (!in_array($key, $obligatoryKeys)) {
                 $response->statusCode = 400;
                 $response->content = "Le champ '$key' n'existe pas dans vos données";
                 return $response;
@@ -41,7 +41,6 @@ class UpdateContact extends AbstractController
         }
         $contentFile = json_decode(file_get_contents($pathToFileContact), true);
 
-        var_dump($contentFile);
         foreach ($nameKeys as $key) {
             $contentFile[$key] = $data[$key];
         }
