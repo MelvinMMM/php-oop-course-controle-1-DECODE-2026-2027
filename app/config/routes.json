@@ -7,26 +7,26 @@
   {
     "uri": "/contact",
     "method": "POST",
-    "controller": "ContactController"
+    "controller": "CreateContact"
   },
   {
     "uri": "/contact",
     "method": "GET",
-    "controller": "AllContactForms"
+    "controller": "ListContact"
   },
   {
     "uri": "/contact/<filename>",
     "method": "GET",
-    "controller": "OneContactForms"
+    "controller": "ShowContact"
   },
   {
     "uri": "/contact/<filename>",
     "method": "PATCH",
-    "controller": "ModifiedContactForms"
+    "controller": "UpdateContact"
   },
   {
     "uri": "/contact/<filename>",
     "method": "DELETE",
-    "controller": "DeleteContactForms"
+    "controller": "DeleteContact"
   }
 ]

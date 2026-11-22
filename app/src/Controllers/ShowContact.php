@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Http\Request;
 use App\Http\Response;
 
-class OneContactForms extends AbstractController
+class ShowContact extends AbstractController
 {
     public function process(Request $request): Response
     {
